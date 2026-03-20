@@ -6,24 +6,18 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Dashboard"),
-      ),
-
+      appBar: AppBar(title: const Text("Dashboard")),
       body: Center(
         child: ElevatedButton(
           child: const Text("Inventario"),
           onPressed: () {
-
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const InventoryScreen(),
+                builder: (_) => const InventoryScreen(),
               ),
             );
-
           },
         ),
       ),
