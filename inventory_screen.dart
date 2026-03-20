@@ -15,13 +15,13 @@ class _InventoryScreenState extends State<InventoryScreen> {
   DBHelper db = DBHelper();
 
   void cargarProductos() async {
-
     final data = await db.obtenerProductos();
+
+    if (!mounted) return;
 
     setState(() {
       productos = data;
     });
-
   }
 
   @override
@@ -34,15 +34,10 @@ class _InventoryScreenState extends State<InventoryScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
-      appBar: AppBar(
-        title: const Text("Inventario"),
-      ),
+      appBar: AppBar(title: const Text("Inventario")),
 
       body: ListView.builder(
-
         itemCount: productos.length,
-
         itemBuilder: (context, index) {
 
           final producto = productos[index];
@@ -51,24 +46,26 @@ class _InventoryScreenState extends State<InventoryScreen> {
             title: Text(producto['nombre']),
             subtitle: Text("Cantidad: ${producto['cantidad']}"),
           );
-
         },
       ),
 
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
         onPressed: () async {
 
           await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const AddProductScreen(),
+              builder: (_) => const AddProductScreen(),
             ),
           );
 
+          if (!mounted) return;
+
           cargarProductos();
         },
+        child: const Icon(Icons.add),
       ),
     );
   }
 }
+ 
