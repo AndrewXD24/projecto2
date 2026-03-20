@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'database/db_helper.dart';
 import 'screens/login_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  DBHelper db = DBHelper();
+  await db.database;
+
   runApp(const MyApp());
 }
 
@@ -13,9 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Inventario',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const LoginScreen(),
     );
   }
