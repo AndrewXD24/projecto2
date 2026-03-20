@@ -21,32 +21,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
-      appBar: AppBar(
-        title: const Text("Agregar Producto"),
-      ),
+      appBar: AppBar(title: const Text("Agregar Producto")),
 
       body: Padding(
         padding: const EdgeInsets.all(20),
-
         child: Column(
           children: [
 
-            TextField(
-              controller: nombre,
-              decoration: const InputDecoration(
-                labelText: "Nombre",
-              ),
-            ),
+            TextField(controller: nombre, decoration: const InputDecoration(labelText: "Nombre")),
 
-            TextField(
-              controller: codigo,
-              decoration: const InputDecoration(
-                labelText: "Código QR",
-              ),
-            ),
-
-            const SizedBox(height: 10),
+            TextField(controller: codigo, decoration: const InputDecoration(labelText: "Código QR")),
 
             ElevatedButton(
               child: const Text("Escanear QR"),
@@ -54,27 +38,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
                 final result = await Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const ScanQRScreen(),
-                  ),
+                  MaterialPageRoute(builder: (_) => const ScanQRScreen()),
                 );
 
-                if(result != null){
+                if (!mounted) return;
+
+                if (result != null) {
                   codigo.text = result;
                 }
-
               },
             ),
 
             TextField(
               controller: cantidad,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: "Cantidad",
-              ),
+              decoration: const InputDecoration(labelText: "Cantidad"),
             ),
-
-            const SizedBox(height: 20),
 
             ElevatedButton(
               child: const Text("Guardar"),
@@ -86,10 +65,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   "cantidad": int.parse(cantidad.text)
                 });
 
+                if (!mounted) return;
+
                 Navigator.pop(context);
               },
             )
-
           ],
         ),
       ),
